@@ -1,0 +1,38 @@
+[
+    {
+        "title": "Yesterday",
+        "date": "27-7-2023",
+        "entries": [
+            {
+                "name": "pataje oorlog",
+                "calories": 300,
+                "time": "12:07",
+                "price": 21
+            }
+        ]            
+    },
+    {
+        "title": "Today",
+        "date": "28-7-2023",
+        "entries": [
+            {
+                "name": "pataje oorlog",
+                "calories": 600,
+                "time": "15:45",
+                "price": 21
+            },
+            {
+                "name": "pataje oorlog",
+                "calories": 600,
+                "time": "15:45",
+                "price": 21
+            },
+            {
+                "name": "pataje oorlog",
+                "calories": 600,
+                "time": "15:45",
+                "price": 21
+            }
+        ]        
+    }
+]

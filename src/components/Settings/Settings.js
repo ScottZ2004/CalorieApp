@@ -12,7 +12,6 @@ export default function Settings(){
 const styles = StyleSheet.create({
     container:{
         padding: 10,
-        flex: 1,
         alignItems: 'flex-end',
         justifyContent: 'center'
     }

@@ -1,26 +1,23 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Context from "./Context";
-import {getCurrentDateTime} from '../Functions/Functions'     
+import jsonData from '../json/Temp.json';  
 
 const ContextProvider = ({children}) => {
     const [maxCalories, setMaxCalories] = useState(2100);
-    const [entries, setEntries] = useState([
-        {
-            name: "pataje oorlog",
-            calories: 300,
-            date: getCurrentDateTime(),
-            price: 21
-        }
-    ])
-    const [selectedDay, setSelectedDay] = useState({
-        date: getCurrentDateTime(),
-        title: "Today"
-    })
+    const [entries, setEntries] = useState([]);
+    const [error, setError] = useState({});
+    const [summaries, setSummaries] = useState([]);
+    // this is temporary
+    useEffect(() => {
+        setSummaries(jsonData);
+    }, [])
+    // untill here
     return (
         <Context.Provider value={{ 
             maxCalories, setMaxCalories,
-            entries, setEntries
-            
+            entries, setEntries,
+            error, setError,
+            summaries
             }}>
             {children}
         </Context.Provider>
