@@ -1,16 +1,16 @@
 import { StyleSheet, Text, TextInput, View, Button, Pressable, Platform, TouchableOpacity } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import Context from '../../context/Context';
+import Context from '../../../context/Context';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import {formatDateToCustomString, formatTimeToCustomString} from '../../../Functions/Functions' 
 
 const NewEntry = () => {
-    const {error, setError} = useContext(Context);
+    const {error, addEntry} = useContext(Context);
     const [name, setName] = useState("");
-    const [calories, setCalories] = useState("");
-    const [price, setPrice] = useState("");
+    const [calories, setCalories] = useState(0);
+    const [price, setPrice] = useState(0);
     const [date, setDate] = useState(new Date())
-    const [dateAndTime, setDateAndTime] = useState("");
+    const [dateAndTime, setDateAndTime] = useState({date:"", time: ""});
     const [showPicker, setShowPicker] = useState(false);
     const toggleDatepicker = () => {
         setShowPicker(!showPicker);
@@ -23,7 +23,12 @@ const NewEntry = () => {
 
             if(Platform.OS === "android"){
                 toggleDatepicker();
-                setDateAndTime(currentDate.toDateString());
+                setDateAndTime(
+                    {
+                        date: formatDateToCustomString(date),
+                        time: formatTimeToCustomString(date)
+                    }
+                );
             }
         }else{
             toggleDatepicker();
@@ -31,8 +36,17 @@ const NewEntry = () => {
     }
 
     const confirmIOSDate = () => {
-        setDateAndTime(date.toDateString());
+        setDateAndTime(
+            {
+                date: formatDateToCustomString(date),
+                time: formatTimeToCustomString(date)
+            }
+        );
         toggleDatepicker()
+    }
+
+    const sendForm = () =>{
+        addEntry(name, calories, price, dateAndTime);
     }
 
     return (
@@ -108,7 +122,7 @@ const NewEntry = () => {
                                 placeholder= {"28-7-2023"}
                                 onChangeText={setDateAndTime}
                                 placeholderTextColor={"#11182744"}
-                                value={dateAndTime}
+                                value={dateAndTime.date + ' ' + dateAndTime.time}
                                 onPressIn={toggleDatepicker}
                             />
                         </Pressable>
@@ -120,7 +134,7 @@ const NewEntry = () => {
                 <View style={styles.submitContainer}>
                     <Text style={styles.error}>{error.form}</Text>
                     <View style={styles.button}>
-                        <Button style={styles.button} color={'#042B3D'} title='Add meal' onPress={() => sendForm()} />
+                        <Button style={styles.button} color={'#042B3D'} title='Add meal' onPress={sendForm} />
                     </View>
                 </View>
             </View>
@@ -169,7 +183,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         flexDirection: 'row',
-        marginVertical: 5
+        marginVertical: 5,
     },
     error:{
         color: '#FF6868',
@@ -182,7 +196,8 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         height: 35,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '50%'
     },
     datePicker:{
         heigth:120,

@@ -1,36 +1,38 @@
 [
     {
+        "id": 0,
         "title": "Yesterday",
-        "date": "27-7-2023",
+        "date": "27/07/2023",
         "entries": [
             {
                 "name": "pataje oorlog",
                 "calories": 300,
-                "time": "12:07",
+                "time": "12:07:00",
                 "price": 21
             }
         ]            
     },
     {
+        "id": 1,
         "title": "Today",
-        "date": "28-7-2023",
+        "date": "28/07/2023",
         "entries": [
             {
                 "name": "pataje oorlog",
                 "calories": 600,
-                "time": "15:45",
+                "time": "15:45:00",
                 "price": 21
             },
             {
                 "name": "pataje oorlog",
                 "calories": 600,
-                "time": "15:45",
+                "time": "15:45:00",
                 "price": 21
             },
             {
                 "name": "pataje oorlog",
                 "calories": 600,
-                "time": "15:45",
+                "time": "15:45:00",
                 "price": 21
             }
         ]        

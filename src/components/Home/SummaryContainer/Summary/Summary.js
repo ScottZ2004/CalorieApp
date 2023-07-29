@@ -1,13 +1,13 @@
 import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import React, { Component, useContext } from 'react'
-import Context from '../../context/Context';
+import Context from '../../../../context/Context';
 
 export default function Summary({summary}) {
     const {maxCalories} = useContext(Context);
     let totalCalories = 0;
     summary.entries.map((entry) => {
-        totalCalories += entry.calories
-    })
+        totalCalories = totalCalories + entry.calories
+    });
 
     const caloriesLeft = maxCalories - totalCalories;
     return (
@@ -18,7 +18,7 @@ export default function Summary({summary}) {
         </View>
         <View style={styles.container}>
             <ScrollView style={styles.scrollContainer}>
-                {summary.entries.map((entry, index) => (
+                {summary.entries.map((entry) => (
                     <View style={styles.entryContainer}>
                         <Text style={styles.entryText}>{entry.name}</Text>
                         <Text style={styles.entryText}>{entry.calories}</Text>

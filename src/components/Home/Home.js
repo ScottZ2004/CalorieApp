@@ -1,23 +1,47 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Image, SafeAreaView, ScrollView } from 'react-native';
-import Context from '../../context/Context';
-import React, { useContext } from 'react';
-import Settings from '../Settings/Settings';
-import SummaryContainer from '../SummaryContainer/SummaryContainer';
-import NewEntry from '../NewEntry/NewEntry'
+import { StyleSheet, View, Image, SafeAreaView, ScrollView, Pressable, Text, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import SummaryContainer from './SummaryContainer/SummaryContainer';
+import NewEntry from './NewEntry/NewEntry';
+import Settings from '../settings/Settings';
 
 export default function Home() {
+  const [showSettings, setShowSettings] = useState(true);
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
+  }
   return (
     <>
       <SafeAreaView style={styles.container}>
         <ScrollView>
-          <Settings/>
-          <SummaryContainer/>
-          <NewEntry/>
+          {!showSettings && (
+            <>
+              <Pressable style={[styles.settingsGear, {alignItems: 'flex-end'}]} onPress={toggleSettings}>
+                <Image
+                source={require('../../../assets/images/SettingGear.png')}
+                />
+              </Pressable>
+              <SummaryContainer/>
+              <NewEntry/>
+            </>
+          )}
+
+          {showSettings && (
+            <>
+              <Pressable style={styles.settingsGear} onPress={toggleSettings}>
+                <Image
+                source={require('../../../assets/images/BackArrow.png')}
+                />
+              </Pressable>
+              <Settings/>
+            </>
+          )}
         </ScrollView>
       </SafeAreaView>
-      <View style={styles.topStatusBar}/>
       <StatusBar style="auto" />
+      {!showSettings && (
+        <View style={styles.topStatusBar}/>
+      )}
     </>
   );
 }
@@ -30,5 +54,9 @@ const styles = StyleSheet.create({
     topStatusBar:{
       backgroundColor: '#146C94',
       height: 34
-    }
+    },
+    settingsGear:{
+      padding: 10,
+      justifyContent: 'center'
+  }
 });

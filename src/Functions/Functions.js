@@ -1,13 +1,19 @@
-export const getCurrentDateTime = () => {
-    const currentDate = new Date();
+export function formatDateToCustomString(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const year = date.getFullYear();
 
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so add 1. Also, pad with leading zero if needed.
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const hours = String(currentDate.getHours()).padStart(2, '0');
-    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-    const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+    // Custom format: DD/MM/YYYY
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+}
 
-    const formattedDateTime = `${day}-${month}-${year} ${seconds}:${minutes}:${hours}`;
-    return formattedDateTime;
-};
+export function formatTimeToCustomString(date) {
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+  
+    // Custom format: HH:mm:ss
+    const formattedDate = `${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+}

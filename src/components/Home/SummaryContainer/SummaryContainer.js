@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import React, { Component, useContext } from 'react'
-import Summary from '../Summary/Summary';
-import Context from '../../context/Context';
+import Summary from './Summary/Summary';
+import Context from '../../../context/Context';
 
 export function SummaryContainer() {
     const {summaries} = useContext(Context);
