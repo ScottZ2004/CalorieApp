@@ -3,8 +3,8 @@ import Context from "./Context";
 import jsonData from '../json/Temp.json';  
 
 const ContextProvider = ({children}) => {
-    const [maxCalories, setMaxCalories] = useState(0);
-    const [maxMoney, setMaxMoney] = useState(0);
+    const [maxCalories, setMaxCalories] = useState(2100);
+    const [maxMoney, setMaxMoney] = useState(1000);
     const [authenticationCode ,setAuthenticationCode] = useState("")
 
     const [entries, setEntries] = useState([]);
@@ -16,6 +16,10 @@ const ContextProvider = ({children}) => {
         setSummaries(jsonData);
     }, [])
     // untill here
+
+    const connectToUser = () => {
+        console.log('connetn')
+    }
 
     const addEntry = (name, calories, price, dateAndTime) => {
         let newSummaries = [];
@@ -67,7 +71,8 @@ const ContextProvider = ({children}) => {
             error, setError,
             summaries, addEntry,
             maxMoney, setMaxMoney,
-            authenticationCode, setAuthenticationCode
+            authenticationCode, setAuthenticationCode,
+            connectToUser
             }}>
             {children}
         </Context.Provider>

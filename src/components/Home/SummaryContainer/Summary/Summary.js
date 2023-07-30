@@ -1,5 +1,5 @@
-import { Text, View, StyleSheet, ScrollView } from 'react-native'
-import React, { Component, useContext } from 'react'
+import { Text, View, StyleSheet, ScrollView, Alert } from 'react-native'
+import React, { useContext } from 'react'
 import Context from '../../../../context/Context';
 
 export default function Summary({summary}) {
@@ -8,8 +8,14 @@ export default function Summary({summary}) {
     summary.entries.map((entry) => {
         totalCalories = totalCalories + entry.calories
     });
-
     const caloriesLeft = maxCalories - totalCalories;
+    if(caloriesLeft < 0){
+        Alert.alert('Maximum Calories reached', 'The maximum number of '+ maxCalories +' caloires for '+ summary.date +' has been reached.', [
+            {
+                text: 'Oke'
+            }
+        ]);
+    }
     return (
       <View>
         <View style={styles.dayContainer}>
