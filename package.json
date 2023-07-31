@@ -12,6 +12,7 @@
     "@codler/react-native-keyboard-aware-scroll-view": "^2.0.1",
     "@react-native-community/datetimepicker": "7.2.0",
     "@react-native-picker/picker": "^2.4.10",
+    "axios": "^1.4.0",
     "expo": "~49.0.5",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",

@@ -2,20 +2,80 @@ import React, {useEffect, useState} from "react";
 import Context from "./Context";
 import jsonData from '../json/Temp.json';  
 import { Alert } from "react-native";
+import axios from "axios";
+axios.defaults.baseURL = "http://calorie-app-api.scottzico.com/api";
 
 const ContextProvider = ({children}) => {
     const [maxCalories, setMaxCalories] = useState(2100);
     const [maxMoney, setMaxMoney] = useState(1000);
-    const [authenticationCode ,setAuthenticationCode] = useState("")
+    const [authenticationCode ,setAuthenticationCode] = useState("LcBpSQr0XRgLKpd");
+    const [authenticationText, setAuthenticationtext] = useState({
+        show: false,
+        color: "green",
+        text: 'Successfully connected!'
+    });
 
     const [error, setError] = useState({});
     const [summaries, setSummaries] = useState([]);
+    //api functions
+    const getSummaries = async () => {
+        try {
+            const response = await axios.get(`/summaries?AuthorizationKey=${authenticationCode}`);
+            setSummaries(response.data);
+        } catch (error) {
+            Alert.alert("Couldn't fetch", "The server couldn't connect to the server", [
+                {
+                    text: "Ok",
+                    style: "cancel"
+                }
+            ])
+        }
 
-    // this is temporary
+    };
+    const postSummaries = async () => {
+        try {
+          const response = await axios.post(`/summaries?AuthorizationKey=${authenticationCode}`, {
+
+          });
+          console.log(response.data);
+        } catch (error) {
+          if (error.response) {
+            console.log('Response Error:', error.response.data);
+          } else if (error.request) {
+            console.log('Request Error:', error.request);
+          } else {
+            console.log('Error:', error.message);
+          }
+        }
+        
+    };
+
+    const checkAuthentication = async () => {
+        try {
+            setAuthenticationtext({});
+            const response = await axios.get(`/testAuthentication?AuthorizationKey=${authenticationCode}`);
+            setAuthenticationtext({
+                show: true,
+                color: "green",
+                text: 'Successfully connected!'
+            })
+        } catch (error) {
+            setAuthenticationtext({
+                show: true,
+                color: "red",
+                text: "Couldn't connect"
+            })
+        }
+        
+    };
+
     useEffect(() => {
-        setSummaries(jsonData);
+        setMaxMoney(1000);
+        setMaxCalories(2100);
+        setAuthenticationCode("LcBpSQr0XRgLKpd")
+        getSummaries();
     }, [])
-    // untill here
+
 
     const getMonthName = (month) => {
         switch(month){
@@ -97,7 +157,7 @@ const ContextProvider = ({children}) => {
     }, [summaries]);
 
     const connectToUser = () => {
-        console.log('connetn')
+        checkAuthentication();
     }
 
     const addEntry = (name, calories, price, dateAndTime) => {
@@ -150,7 +210,7 @@ const ContextProvider = ({children}) => {
             summaries, addEntry,
             maxMoney, setMaxMoney,
             authenticationCode, setAuthenticationCode,
-            connectToUser, 
+            connectToUser, authenticationText
             }}>
             {children}
         </Context.Provider>

@@ -3,10 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Context from '../../context/Context';
 
 const Settings = () => {
-  const {setMaxMoney, maxMoney, setMaxCalories, maxCalories, setAuthenticationCode, authenticationCode, connectToUser} = useContext(Context);
-  useEffect(() => {
-    console.log(maxMoney, maxCalories)
-  }, []);
+  const {setMaxMoney, maxMoney, setMaxCalories, maxCalories, setAuthenticationCode, authenticationCode, connectToUser, authenticationText} = useContext(Context);
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -33,12 +30,16 @@ const Settings = () => {
           defaultValue={authenticationCode}
           onChangeText={setAuthenticationCode}
           style={styles.input}
-          keyboardType='numeric'
         />
       </View>
       <View style={styles.button}>
         <Button style={styles.button} title='Connect to user' color='black' onPress={connectToUser} />
       </View>
+      {authenticationText.show === true && (
+        <View style={styles.inputContainer}>
+          <Text color={styles.color} >{authenticationText.text}</Text>
+        </View>
+      )}
     </View>
   );
 }

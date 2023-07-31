@@ -19,13 +19,18 @@ export default function Summary({summary}) {
     return (
       <View>
         <View style={styles.dayContainer}>
-            <Text style={styles.dayTitle}>{summary.title}</Text>
-            <Text style={styles.dayDate}>{summary.date}</Text>
+            <View style={styles.dayTitleContainer}>
+                <Text style={styles.dayTitle}>{summary.title}</Text>
+            </View>
+            <View style={styles.dayTitleContainer}>
+                <Text style={styles.dayDate}>{summary.date}</Text>
+            </View>
+            
         </View>
         <View style={styles.container}>
             <ScrollView style={styles.scrollContainer}>
                 {summary.entries.map((entry) => (
-                    <View style={styles.entryContainer}>
+                    <View key={entry.id} style={styles.entryContainer}>
                         <Text style={styles.entryText}>{entry.name}</Text>
                         <Text style={styles.entryText}>{entry.calories}</Text>
                     </View>
@@ -56,12 +61,15 @@ export default function Summary({summary}) {
 const styles = StyleSheet.create({
     dayContainer:{
         alignItems: 'center',
+        justifyContent: 'center',
         marginBottom:20,
     },
     dayTitle:{
-        fontSize: 60,
+        fontSize: 40,
         fontWeight: 'bold',
-        color: '#042B3D'
+        color: '#042B3D',
+        height:'auto',
+        width: '100%'
     },
     dayDate:{
         fontSize: 25,
