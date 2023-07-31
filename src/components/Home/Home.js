@@ -6,7 +6,7 @@ import NewEntry from './NewEntry/NewEntry';
 import Settings from '../settings/Settings';
 
 export default function Home() {
-  const [showSettings, setShowSettings] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
   const toggleSettings = () => {
     setShowSettings(!showSettings);
   }
